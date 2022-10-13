@@ -1,10 +1,18 @@
 const  retard = new(function () {
      this.make = function (tag, attrs, inside) {
-         multi(tag, attrs, inside);
-     }
+         if(typeof inside === 'undefined')
+             return single(tag,attrs);
+         if(typeof inside === 'string')
+             return multi(
+                 tag,
+                 attrs,
+                 document.createTextNode(inside)
+             );
+         return multi(tag,attrs,inside);
+     };
      this.single = function (tag, attrs) {
          return single(tag, attrs);
-     }
+     };
      const multi = function(tag, attrs, inside){
          let el = single(tag, attrs);
          if(!Array.isArray(inside))
@@ -22,7 +30,7 @@ const  retard = new(function () {
              );
          return el;
      };
-     const attrVall = (val)=>{
+     const attrVal = (val)=>{
          var out = '';
          if (Array.isArray(val))
             for (let i = 0; val.length > i; i++)
@@ -30,7 +38,6 @@ const  retard = new(function () {
         else
             out = val;
         return out;
-
      };
 })();
 

@@ -1,43 +1,145 @@
-const  retard = new(function () {
-     this.make = function (tag, attrs, inside) {
-         if(typeof inside === 'undefined')
-             return single(tag,attrs);
-         if(typeof inside === 'string')
-             return multi(
-                 tag,
-                 attrs,
-                 document.createTextNode(inside)
-             );
-         return multi(tag,attrs,inside);
-     };
-     this.single = function (tag, attrs) {
-         return single(tag, attrs);
-     };
-     const multi = function(tag, attrs, inside){
-         let el = single(tag, attrs);
-         if(!Array.isArray(inside))
-             inside = [inside];
-         for(let i of inside)
-             el.appendChild(i);
-         return el;
-     };
-     const single = (tag, attrs)=>{
-         let el = document.createElement(tag);
-         for (let attr in attrs)
-             el.setAttribute(
-                 attr,
-                 attrVal(attrs[attr])
-             );
-         return el;
-     };
-     const attrVal = (val)=>{
-         var out = '';
-         if (Array.isArray(val))
-            for (let i = 0; val.length > i; i++)
-                out += val[i] + ' ';
-        else
-            out = val;
-        return out;
-     };
+const retard = new(function () {
+  /**
+   * 
+   * @param {string}
+   * @public
+   * @return {DOMElement}
+  **/ 
+  this.text = (a)=>_text(a);
+  /**
+   * 
+   * @param {?string} - tag
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {?DOMElement|Array.<DOMElement>|string} - inside
+   * @private
+   * @return {string}
+  **/
+  this.make = function (tag, attrs, inside) {
+    if(typeof tag === 'string')
+      return _make(tag, attrs, inside);
+    return _make('div', tag, attrs);
+  };
+  /**
+   * 
+   * @param {string}
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @public
+   * @return {DOMElement}
+  **/ 
+  this.single = function (tag, attrs) {
+    return _single(tag, attrs);
+  };
+  /**
+   * 
+   * @param {string}
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {string}
+   * @public
+   * @return {DOMElement}
+  **/ 
+  this.inner = function(tag, attrs, html){
+    return _inner(tag, attrs, html);
+  };
+  /**
+   * 
+   * @param {string} - tag
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {DOMElement|Array.<DOMElement>|string} - inside
+   * @private
+   * @return {string}
+  **/
+  const _multi = function(tag, attrs, inside){
+    let el = _single(tag, attrs);
+    if(!Array.isArray(inside))
+      inside = [inside];
+    for(let i of inside)
+      if (typeof i === 'string')
+        el.appendChild(text(i));
+      else
+        el.appendChild(i);
+    return el;
+  };
+  /**
+   * 
+   * @param {string}
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {string}
+   * @private
+   * @return {DOMElement}
+  **/ 
+  const _inner = function(tag, attrs, html){
+    let el = single(tag, attrs);
+    el.innerHTML = html;
+    return el;
+  };
+  /**
+   * 
+   * @param {string}
+   * @private
+   * @return {DOMElement}
+  **/ 
+  const _text = (text_)=>{
+    return document.createTextNode(text_+' ');
+  };
+  /**
+   * single html element crator
+   *
+   * @param {string} - tag
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @private
+   * @return {DOMElement}
+  **/
+  const _single = (tag, attrs)=>{
+    let el = document.createElement(tag);
+    _attrSet(el, attrs); 
+    return el;
+  };
+  /**
+   * 
+   * @param {DOMElement} - el
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @private
+   * @return {void}
+  **/
+  const _attrSet = (el, attrs)=>{
+    if (Array.isArray(attrs))
+      attrs = {'class':attrs};
+    for (let attr in attrs)
+      el.setAttribute(
+        attr,
+        _attrVal(attrs[attr])
+      );
+  };
+  /**
+   * 
+   * @param {Array<string>|string} - val
+   * @private
+   * @return {string}
+  **/
+  const _attrVal = (val)=>{
+    if (Array.isArray(val))
+      return val.join(' ');
+    else
+      return val;
+  };
+  /**
+   * 
+   * @param {?string} - tag
+   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {?DOMElement|Array.<DOMElement>|string} - inside
+   * @private
+   * @return {string}
+  **/
+  const _make = function (tag, attrs, inside) {
+    if(typeof inside === 'undefined')
+      return _single(tag,attrs);
+    if(typeof inside === 'string')
+      return _multi(
+        tag,
+        attrs,
+        _text(inside)
+      );
+    return _multi(tag,attrs,inside);
+  };
 })();
 

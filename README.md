@@ -48,6 +48,6 @@ Like the multi but with the not-safe innerHTML. Mainly for SVG injection. Do not
 
  Over the years I worked with multiple template engines Mustache, Twig, Blade, Smarty, Razor, and Jinja. I worked with fronted with frontend frameworks like angular js, reactjs (JSX important here), and Vuejs. 
 
- They have differences and similarities. My favorites are React and Vuejs because they manage the htHTMLags as objects (DOMElements). However, most of the templates try to inject the logic into the XML. The Vuejs do this too but not force it. 
+ They have differences and similarities. My favorites are React and Vuejs because they manage the HTML tags as objects (DOMElements). However, most of the templates try to inject the logic into the HTML. The Vuejs do this too but not force it. 
 
- But if I work with an AI and you want to keep the code readable you should inject the functionality to the object, not to the metalang. If I am not lazy I should write retard2react and retard2vuejs converter soon. 
+ But if You work with an AI tool and you want to keep the code readable you should inject the functionality to the object, not to the metalang. If I am not lazy I should write retard2react and retard2vuejs converter soon. 

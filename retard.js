@@ -1,3 +1,23 @@
+
+/**
+ * @typedef DOMAttrObj
+ * @type {Object}
+ * @property {string} id
+ * @property {string|Array.<string>}
+**/
+
+/**
+ * @typedef DOMAttrArr
+ * @type {Array}
+ * @property {string} id
+**/
+
+
+/**
+ * @typedef DOMTypes
+ * @type {DOMElement|Array.<DOMElement>|string}
+**/
+
 const retard = new(function () {
   /**
    * 
@@ -9,8 +29,8 @@ const retard = new(function () {
   /**
    * 
    * @param {?string} - tag
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
-   * @param {?DOMElement|Array.<DOMElement>|string} - inside
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
+   * @param {?DOMTypes} - inside
    * @private
    * @return {string}
   **/
@@ -21,8 +41,8 @@ const retard = new(function () {
   };
   /**
    * 
-   * @param {string}
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {string} - tag
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
    * @public
    * @return {DOMElement}
   **/ 
@@ -31,9 +51,9 @@ const retard = new(function () {
   };
   /**
    * 
-   * @param {string}
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
-   * @param {string}
+   * @param {string} - tag
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
+   * @param {string} - html
    * @public
    * @return {DOMElement}
   **/ 
@@ -43,8 +63,8 @@ const retard = new(function () {
   /**
    * 
    * @param {string} - tag
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
-   * @param {DOMElement|Array.<DOMElement>|string} - inside
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
+   * @param {DOMTypes} - inside
    * @private
    * @return {string}
   **/
@@ -61,9 +81,9 @@ const retard = new(function () {
   };
   /**
    * 
-   * @param {string}
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
-   * @param {string}
+   * @param {string} - tag
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
+   * @param {string} - html
    * @private
    * @return {DOMElement}
   **/ 
@@ -85,7 +105,7 @@ const retard = new(function () {
    * single html element crator
    *
    * @param {string} - tag
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
    * @private
    * @return {DOMElement}
   **/
@@ -97,7 +117,7 @@ const retard = new(function () {
   /**
    * 
    * @param {DOMElement} - el
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
    * @private
    * @return {void}
   **/
@@ -125,8 +145,8 @@ const retard = new(function () {
   /**
    * 
    * @param {?string} - tag
-   * @param {Array.<string>|Object.<string, string|Array.<string>>} - attrs
-   * @param {?DOMElement|Array.<DOMElement>|string} - inside
+   * @param {DOMAttrObj|DOMAttrArr} - attrs
+   * @param {?DOMTypes} - inside
    * @private
    * @return {string}
   **/
